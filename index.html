@@ -505,7 +505,7 @@
         /* Try badge */
         .phone-try-badge {
             position: absolute;
-            bottom: -8px;
+            bottom: -44px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--burgundy);
@@ -1759,22 +1759,30 @@
             });
         }
 
-        // Auto-rotate every 4 seconds
-        let phoneAutoTimer = setInterval(() => {
-            switchPhoneScreen((currentPhoneScreen + 1) % totalScreens);
-        }, 4000);
+        // Auto-rotate — start after 8s delay so user can scratch first
+        let phoneAutoTimer;
+        function startAutoRotate() {
+            clearInterval(phoneAutoTimer);
+            phoneAutoTimer = setInterval(() => {
+                switchPhoneScreen((currentPhoneScreen + 1) % totalScreens);
+            }, 5000);
+        }
+        setTimeout(startAutoRotate, 8000);
 
-        // Pause auto-rotate on manual tap, resume after 10s
+        // Pause auto-rotate on manual tap or scratch, resume after 12s
+        function pauseAutoRotate() {
+            clearInterval(phoneAutoTimer);
+            setTimeout(startAutoRotate, 12000);
+        }
         document.querySelectorAll('#phoneTabBar .phone-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                clearInterval(phoneAutoTimer);
-                setTimeout(() => {
-                    phoneAutoTimer = setInterval(() => {
-                        switchPhoneScreen((currentPhoneScreen + 1) % totalScreens);
-                    }, 4000);
-                }, 10000);
-            });
+            tab.addEventListener('click', pauseAutoRotate);
         });
+        // Also pause when scratching
+        const scratchCanvasEl = document.getElementById('scratchCanvas');
+        if (scratchCanvasEl) {
+            scratchCanvasEl.addEventListener('mousedown', pauseAutoRotate);
+            scratchCanvasEl.addEventListener('touchstart', pauseAutoRotate);
+        }
     </script>
 </body>
 </html>
