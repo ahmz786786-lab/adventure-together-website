@@ -668,21 +668,21 @@
             background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.02) 8px, rgba(255,255,255,0.02) 16px);
         }
         .rarity-common {
-            background: linear-gradient(160deg, #4A3F42, #3D3335);
-            border-color: #5A4F52;
+            background: linear-gradient(160deg, #4A3F2A, #3D3520);
+            border-color: #D4AF37;
         }
         .rarity-rare {
-            background: linear-gradient(160deg, #2A3A4A, #1E2E3E);
-            border-color: #4A8BC2;
+            background: linear-gradient(160deg, #3A3A3E, #2E2E32);
+            border-color: #C0C0C0;
         }
         .rarity-epic {
             background: linear-gradient(160deg, #3A2A4A, #2E1E3E);
             border-color: #9B59B6;
         }
         .rarity-legendary {
-            background: linear-gradient(160deg, #4A3A1A, #3E2E0E);
-            border-color: var(--gold);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            background: linear-gradient(160deg, #4A2A2A, #3E1E1E);
+            border-color: #FF6B6B;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.15);
         }
         .rarity-card:hover { transform: translateY(-8px) scale(1.02); }
         .rarity-emoji { font-size: 40px; margin-bottom: 12px; position: relative; z-index: 1; }
@@ -700,7 +700,10 @@
             position: relative;
             z-index: 1;
         }
-        .rarity-legendary .rarity-name { color: var(--gold); }
+        .rarity-common .rarity-name { color: #D4AF37; }
+        .rarity-rare .rarity-name { color: #C0C0C0; }
+        .rarity-epic .rarity-name { color: #BB8FCE; }
+        .rarity-legendary .rarity-name { color: #FF6B6B; }
 
         /* ─── TESTIMONIALS ─── */
         .testimonials-grid {
@@ -1182,22 +1185,22 @@
             </div>
             <div class="rarity-grid">
                 <div class="rarity-card rarity-common reveal d1">
-                    <div class="rarity-emoji">&#9898;</div>
+                    <div class="rarity-emoji">✨</div>
                     <h3 class="rarity-name">Common</h3>
                     <p class="rarity-chance">60% drop rate</p>
                 </div>
                 <div class="rarity-card rarity-rare reveal d2">
-                    <div class="rarity-emoji">&#128153;</div>
+                    <div class="rarity-emoji">💎</div>
                     <h3 class="rarity-name">Rare</h3>
                     <p class="rarity-chance">25% drop rate</p>
                 </div>
                 <div class="rarity-card rarity-epic reveal d3">
-                    <div class="rarity-emoji">&#128156;</div>
+                    <div class="rarity-emoji">🔮</div>
                     <h3 class="rarity-name">Epic</h3>
                     <p class="rarity-chance">12% drop rate</p>
                 </div>
                 <div class="rarity-card rarity-legendary reveal d4">
-                    <div class="rarity-emoji">&#128081;</div>
+                    <div class="rarity-emoji">👑</div>
                     <h3 class="rarity-name">Legendary</h3>
                     <p class="rarity-chance">3% drop rate</p>
                 </div>
