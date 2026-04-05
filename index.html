@@ -368,28 +368,69 @@
         }
         .phone-card {
             flex: 1;
-            background: linear-gradient(145deg, var(--burgundy), var(--burgundy-deep));
             border-radius: 20px;
-            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Revealed challenge underneath */
+        .phone-card-revealed {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, #1A1517, #2A2224);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            padding: 16px;
+            z-index: 0;
         }
-        .phone-card::before {
-            content: '';
+        .phone-card-revealed .reveal-rarity {
+            padding: 3px 10px;
+            background: rgba(155, 89, 182, 0.2);
+            border: 1px solid rgba(155, 89, 182, 0.5);
+            border-radius: 8px;
+            font-size: 8px;
+            font-weight: 800;
+            color: #BB8FCE;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .phone-card-revealed .reveal-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: #FFF5F3;
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+        .phone-card-revealed .reveal-desc {
+            font-size: 9px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            line-height: 1.5;
+        }
+        .phone-card-revealed .reveal-btn {
+            margin-top: 12px;
+            background: #4A7C59;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: default;
+        }
+        /* Scratch canvas overlay */
+        .phone-card canvas {
             position: absolute;
             inset: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.03) 10px,
-                rgba(255,255,255,0.03) 20px
-            );
+            z-index: 1;
+            border-radius: 20px;
+            cursor: grab;
+            touch-action: none;
         }
+        .phone-card canvas:active { cursor: grabbing; }
         .phone-card-icon {
             font-size: 48px;
             margin-bottom: 12px;
@@ -1067,12 +1108,16 @@
                                             <div style="font-size:7px;color:var(--text-secondary);">day streak 🔥</div>
                                         </div>
                                     </div>
-                                    <div class="phone-card">
-                                        <div class="phone-scratch-lines"><div></div><div></div><div></div></div>
-                                        <div class="phone-rarity">EPIC</div>
-                                        <span class="phone-card-icon">✨</span>
-                                        <p class="phone-card-text">Scratch to Reveal</p>
-                                        <p class="phone-card-sub">Your next adventure awaits</p>
+                                    <div class="phone-card" id="scratchCard">
+                                        <!-- Revealed challenge underneath -->
+                                        <div class="phone-card-revealed">
+                                            <div class="reveal-rarity">EPIC</div>
+                                            <div class="reveal-title">Cook Without Rules</div>
+                                            <div class="reveal-desc">Pick ingredients at random from your kitchen. Cook something together — no recipes allowed. Worst case, you order pizza.</div>
+                                            <div class="reveal-btn">Let's Do It!</div>
+                                        </div>
+                                        <!-- Scratch canvas drawn on top -->
+                                        <canvas id="scratchCanvas"></canvas>
                                     </div>
                                 </div>
 
@@ -1524,6 +1569,120 @@
                 answer.style.maxHeight = answer.scrollHeight + 'px';
             }
         }
+
+        // Scratch card canvas
+        (function initScratch() {
+            const card = document.getElementById('scratchCard');
+            const canvas = document.getElementById('scratchCanvas');
+            if (!card || !canvas) return;
+
+            function setupCanvas() {
+                const rect = card.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
+
+                const ctx = canvas.getContext('2d');
+                ctx.scale(dpr, dpr);
+
+                // Draw the foil cover
+                const grad = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+                grad.addColorStop(0, '#D4918F');
+                grad.addColorStop(1, '#B87876');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.roundRect(0, 0, rect.width, rect.height, 20);
+                ctx.fill();
+
+                // Diagonal shimmer lines
+                ctx.strokeStyle = 'rgba(212,175,55,0.15)';
+                ctx.lineWidth = 1;
+                for (let i = -rect.height; i < rect.width + rect.height; i += 12) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i + rect.height, rect.height);
+                    ctx.stroke();
+                }
+
+                // Text
+                ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                ctx.font = '800 14px Nunito, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('SCRATCH TO REVEAL', rect.width / 2, rect.height / 2 - 8);
+                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                ctx.font = '400 10px Inter, sans-serif';
+                ctx.fillText('Use your finger or mouse', rect.width / 2, rect.height / 2 + 12);
+
+                // Sparkle icon
+                ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                ctx.font = '28px serif';
+                ctx.fillText('✨', rect.width / 2, rect.height / 2 - 30);
+
+                // EPIC badge
+                ctx.fillStyle = 'rgba(212,175,55,0.25)';
+                ctx.beginPath();
+                ctx.roundRect(rect.width - 55, 10, 45, 20, 6);
+                ctx.fill();
+                ctx.fillStyle = '#D4AF37';
+                ctx.font = '800 8px Inter, sans-serif';
+                ctx.fillText('EPIC', rect.width - 32, 24);
+
+                return ctx;
+            }
+
+            let ctx = setupCanvas();
+            let isScratching = false;
+            let scratchedPixels = 0;
+            let totalPixels = 0;
+            let revealed = false;
+
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            function scratch(e) {
+                if (!isScratching || revealed) return;
+                const pos = getPos(e);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 18, 0, Math.PI * 2);
+                ctx.fill();
+                scratchedPixels += 18 * 18 * Math.PI;
+
+                // Check if enough scratched (40%)
+                if (!totalPixels) {
+                    const rect = canvas.getBoundingClientRect();
+                    totalPixels = rect.width * rect.height;
+                }
+                if (scratchedPixels > totalPixels * 0.4 && !revealed) {
+                    revealed = true;
+                    canvas.style.transition = 'opacity 0.8s ease';
+                    canvas.style.opacity = '0';
+                    setTimeout(() => { canvas.style.display = 'none'; }, 800);
+                }
+            }
+
+            canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+            canvas.addEventListener('mousemove', scratch);
+            canvas.addEventListener('mouseup', () => { isScratching = false; });
+            canvas.addEventListener('mouseleave', () => { isScratching = false; });
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isScratching = true; scratch(e); }, { passive: false });
+            canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
+            canvas.addEventListener('touchend', () => { isScratching = false; });
+
+            // Re-init on resize
+            window.addEventListener('resize', () => {
+                if (!revealed) {
+                    scratchedPixels = 0;
+                    ctx = setupCanvas();
+                }
+            });
+        })();
 
         // Phone mockup screen carousel
         let currentPhoneScreen = 0;
