@@ -8,6 +8,9 @@
     <meta property="og:title" content="Adventure Together — Couples Adventure App">
     <meta property="og:description" content="Personalised challenges that push couples out of their comfort zone. Scratch, reveal, adventure together.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://ahmz786786-lab.github.io/adventure-together-website/og-image.png">
+    <meta property="og:url" content="https://ahmz786786-lab.github.io/adventure-together-website/">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -89,11 +92,12 @@
             width: 36px;
             height: 36px;
             border-radius: 10px;
-            background: linear-gradient(135deg, var(--burgundy), var(--burgundy-deep));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .nav-logo svg {
+            width: 100%;
+            height: 100%;
         }
         .nav-brand-text {
             font-family: 'Nunito', sans-serif;
@@ -952,7 +956,7 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="nav-brand">
-                <div class="nav-logo">&#10084;</div>
+                <div class="nav-logo"><svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="130" height="130" rx="28" fill="#FFF5F3"/><rect x="22" y="32" width="86" height="72" rx="7" fill="#D4918F"/><rect x="46" y="24" width="38" height="15" rx="5" fill="#D4918F"/><rect x="22" y="32" width="86" height="72" rx="7" fill="url(#gl)" opacity="0.3"/><circle cx="76" cy="30" r="4" fill="#FFF5F3" opacity="0.5"/><circle cx="76" cy="30" r="2" fill="#FFF5F3" opacity="0.8"/><circle cx="65" cy="62" r="21" fill="#2C2C2C"/><circle cx="65" cy="62" r="16" fill="#1A1517"/><circle cx="65" cy="62" r="11" fill="#0f0d0e"/><circle cx="58" cy="55" r="4" fill="white" opacity="0.14"/><circle cx="56" cy="53" r="2" fill="white" opacity="0.24"/><rect x="22" y="88" width="86" height="16" fill="#c47e7c"/><rect x="22" y="98" width="86" height="6" fill="#D4918F"/><rect x="22" y="87.5" width="86" height="1.5" fill="#D4AF37" opacity="0.85"/><path d="M98 76C98 74 96 71 93 71C90.5 71 89 73.5 88.5 74.8C88 73.5 86.5 71 84 71C81 71 79 74 79 76C79 80 88.5 86 88.5 86C88.5 86 98 80 98 76Z" fill="#D4AF37"/><defs><radialGradient id="gl" cx="35%" cy="28%" r="65%"><stop offset="0%" stop-color="#fff" stop-opacity="0.7"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient></defs></svg></div>
                 <span class="nav-brand-text">Adventure Together</span>
             </a>
             <ul class="nav-links" id="navLinks">
@@ -1012,8 +1016,29 @@
                     <div class="phone-screen">
                         <div class="phone-notch"></div>
                         <div class="phone-ui">
-                            <p class="phone-greeting">Good evening</p>
-                            <p class="phone-name">Sarah &amp; James</p>
+                            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                                <div class="nav-logo" style="width:28px;height:28px;border-radius:7px;"><svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="130" height="130" rx="28" fill="#FFF5F3"/><rect x="22" y="32" width="86" height="72" rx="7" fill="#D4918F"/><rect x="46" y="24" width="38" height="15" rx="5" fill="#D4918F"/><circle cx="65" cy="62" r="21" fill="#2C2C2C"/><circle cx="65" cy="62" r="16" fill="#1A1517"/><circle cx="65" cy="62" r="11" fill="#0f0d0e"/><rect x="22" y="88" width="86" height="16" fill="#c47e7c"/><rect x="22" y="87.5" width="86" height="1.5" fill="#D4AF37" opacity="0.85"/><path d="M98 76C98 74 96 71 93 71C90.5 71 89 73.5 88.5 74.8C88 73.5 86.5 71 84 71C81 71 79 74 79 76C79 80 88.5 86 88.5 86C88.5 86 98 80 98 76Z" fill="#D4AF37"/></svg></div>
+                                <p class="phone-greeting" style="margin:0;">Good evening</p>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                <p class="phone-name" style="margin:0;">Your Next Adventure</p>
+                                <div style="display:flex;gap:6px;">
+                                    <div style="width:24px;height:24px;border-radius:12px;background:var(--dark-card-alt);display:flex;align-items:center;justify-content:center;font-size:12px;">🔔</div>
+                                    <div style="width:24px;height:24px;border-radius:12px;background:var(--dark-card-alt);display:flex;align-items:center;justify-content:center;font-size:12px;">🔥</div>
+                                </div>
+                            </div>
+                            <!-- Stats row -->
+                            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                                <div style="flex:1;background:var(--dark-card-alt);border-radius:12px;padding:8px;text-align:center;">
+                                    <div style="font-size:18px;font-weight:800;color:var(--burgundy);">12</div>
+                                    <div style="font-size:8px;color:var(--text-secondary);">completed</div>
+                                </div>
+                                <div style="flex:1;background:var(--dark-card-alt);border-radius:12px;padding:8px;text-align:center;">
+                                    <div style="font-size:18px;font-weight:800;color:var(--burgundy);">7</div>
+                                    <div style="font-size:8px;color:var(--text-secondary);">day streak 🔥</div>
+                                </div>
+                            </div>
+                            <!-- Mystery card -->
                             <div class="phone-card">
                                 <div class="phone-scratch-lines">
                                     <div></div><div></div><div></div>
@@ -1185,8 +1210,8 @@
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-label">Couple Stories</span>
-                <h2 class="section-title">Real Couples. Real Adventures.</h2>
-                <p class="section-subtitle">See how couples are rediscovering each other, one challenge at a time.</p>
+                <h2 class="section-title">Early Adopters. Real Stories.</h2>
+                <p class="section-subtitle">Hear from couples who tested Adventure Together during our beta.</p>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card reveal d1">
@@ -1196,7 +1221,7 @@
                         <div class="testimonial-avatar">&#128107;</div>
                         <div>
                             <p class="testimonial-name">Aisha &amp; Yusuf</p>
-                            <p class="testimonial-info">London &middot; 23 adventures completed</p>
+                            <p class="testimonial-info">London &middot; Beta tester</p>
                         </div>
                     </div>
                 </div>
@@ -1207,7 +1232,7 @@
                         <div class="testimonial-avatar">&#128145;</div>
                         <div>
                             <p class="testimonial-name">Emma &amp; Dan</p>
-                            <p class="testimonial-info">Manchester &middot; 31 adventures completed</p>
+                            <p class="testimonial-info">Manchester &middot; Beta tester</p>
                         </div>
                     </div>
                 </div>
@@ -1218,7 +1243,7 @@
                         <div class="testimonial-avatar">&#128149;</div>
                         <div>
                             <p class="testimonial-name">Priya &amp; Arjun</p>
-                            <p class="testimonial-info">Birmingham &middot; 42 adventures completed</p>
+                            <p class="testimonial-info">Birmingham &middot; Beta tester</p>
                         </div>
                     </div>
                 </div>
@@ -1295,9 +1320,10 @@
                 <h2 class="cta-title reveal">Your Next Adventure<br>Starts <span class="highlight" style="background:linear-gradient(135deg,var(--burgundy),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Right Now</span></h2>
                 <p class="cta-subtitle reveal d1">Download free. Set up in 2 minutes. Your first mystery card is waiting.</p>
                 <div class="cta-buttons reveal d2">
-                    <a href="#" class="btn btn-primary" style="padding: 16px 36px; font-size: 17px;">Download for iOS</a>
-                    <a href="#" class="btn btn-primary" style="padding: 16px 36px; font-size: 17px; background: linear-gradient(135deg, var(--dark-card), var(--dark-card-alt)); box-shadow: 0 4px 20px rgba(0,0,0,0.3);">Download for Android</a>
+                    <a href="#" class="btn btn-primary" style="padding: 16px 36px; font-size: 17px;">&#63743; Download for iOS</a>
+                    <a href="#" class="btn btn-primary" style="padding: 16px 36px; font-size: 17px; background: linear-gradient(135deg, var(--dark-card), var(--dark-card-alt)); box-shadow: 0 4px 20px rgba(0,0,0,0.3);">&#9654; Download for Android</a>
                 </div>
+                <p class="reveal d3" style="margin-top:16px;font-size:13px;color:var(--text-secondary);text-align:center;">Coming soon to App Store and Google Play</p>
             </div>
         </div>
     </section>
@@ -1308,7 +1334,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="nav-brand">
-                        <div class="nav-logo">&#10084;</div>
+                        <div class="nav-logo"><svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="130" height="130" rx="28" fill="#FFF5F3"/><rect x="22" y="32" width="86" height="72" rx="7" fill="#D4918F"/><rect x="46" y="24" width="38" height="15" rx="5" fill="#D4918F"/><rect x="22" y="32" width="86" height="72" rx="7" fill="url(#gl)" opacity="0.3"/><circle cx="76" cy="30" r="4" fill="#FFF5F3" opacity="0.5"/><circle cx="76" cy="30" r="2" fill="#FFF5F3" opacity="0.8"/><circle cx="65" cy="62" r="21" fill="#2C2C2C"/><circle cx="65" cy="62" r="16" fill="#1A1517"/><circle cx="65" cy="62" r="11" fill="#0f0d0e"/><circle cx="58" cy="55" r="4" fill="white" opacity="0.14"/><circle cx="56" cy="53" r="2" fill="white" opacity="0.24"/><rect x="22" y="88" width="86" height="16" fill="#c47e7c"/><rect x="22" y="98" width="86" height="6" fill="#D4918F"/><rect x="22" y="87.5" width="86" height="1.5" fill="#D4AF37" opacity="0.85"/><path d="M98 76C98 74 96 71 93 71C90.5 71 89 73.5 88.5 74.8C88 73.5 86.5 71 84 71C81 71 79 74 79 76C79 80 88.5 86 88.5 86C88.5 86 98 80 98 76Z" fill="#D4AF37"/><defs><radialGradient id="gl" cx="35%" cy="28%" r="65%"><stop offset="0%" stop-color="#fff" stop-opacity="0.7"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient></defs></svg></div>
                         <span class="nav-brand-text">Adventure Together</span>
                     </a>
                     <p>Personalised challenges that push couples out of their comfort zone. Built for couples who want more than Netflix and chill.</p>
