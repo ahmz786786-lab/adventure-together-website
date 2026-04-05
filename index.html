@@ -502,6 +502,43 @@
             background: var(--dark-card-alt);
         }
         .phone-tab-dot.active { background: var(--burgundy); }
+        /* Try badge */
+        .phone-try-badge {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--burgundy);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(212,145,143,0.4);
+            animation: tryPulse 2s ease-in-out infinite;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .phone-try-badge.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(10px);
+            pointer-events: none;
+        }
+        .phone-try-hand {
+            display: inline-block;
+            animation: tryWiggle 1.5s ease-in-out infinite;
+        }
+        @keyframes tryPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(212,145,143,0.4); }
+            50% { box-shadow: 0 4px 30px rgba(212,145,143,0.7); }
+        }
+        @keyframes tryWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+        }
+
         /* Phone screen carousel */
         .phone-screens {
             flex: 1;
@@ -1077,6 +1114,9 @@
             </div>
             <div class="hero-visual reveal d3">
                 <div class="phone-glow"></div>
+                <div class="phone-try-badge" id="phoneTryBadge">
+                    <span class="phone-try-hand">👆</span> Try it — scratch the card!
+                </div>
                 <div class="phone-mockup">
                     <div class="phone-screen">
                         <div class="phone-notch"></div>
@@ -1667,11 +1707,13 @@
                 }
             }
 
-            canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+            const tryBadge = document.getElementById('phoneTryBadge');
+            function hideTryBadge() { if (tryBadge) tryBadge.classList.add('hidden'); }
+            canvas.addEventListener('mousedown', (e) => { isScratching = true; hideTryBadge(); scratch(e); });
             canvas.addEventListener('mousemove', scratch);
             canvas.addEventListener('mouseup', () => { isScratching = false; });
             canvas.addEventListener('mouseleave', () => { isScratching = false; });
-            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isScratching = true; scratch(e); }, { passive: false });
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isScratching = true; hideTryBadge(); scratch(e); }, { passive: false });
             canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
             canvas.addEventListener('touchend', () => { isScratching = false; });
 
