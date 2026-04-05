@@ -461,6 +461,27 @@
             background: var(--dark-card-alt);
         }
         .phone-tab-dot.active { background: var(--burgundy); }
+        /* Phone screen carousel */
+        .phone-screens {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        .phone-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s var(--transition), transform 0.6s var(--transition);
+            pointer-events: none;
+        }
+        .phone-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
         .phone-tab-label {
             font-size: 9px;
             color: var(--text-secondary);
@@ -1018,10 +1039,11 @@
                 <div class="phone-mockup">
                     <div class="phone-screen">
                         <div class="phone-notch"></div>
-                        <div class="phone-ui">
+                        <div class="phone-ui" id="phoneUI">
+                            <!-- Shared header -->
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
                                 <div style="display:flex;align-items:center;gap:8px;">
-                                    <div class="nav-logo" style="width:28px;height:28px;border-radius:7px;"><svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="130" height="130" rx="28" fill="#FFF5F3"/><rect x="22" y="32" width="86" height="72" rx="7" fill="#D4918F"/><rect x="46" y="24" width="38" height="15" rx="5" fill="#D4918F"/><circle cx="65" cy="62" r="21" fill="#2C2C2C"/><circle cx="65" cy="62" r="16" fill="#1A1517"/><circle cx="65" cy="62" r="11" fill="#0f0d0e"/><rect x="22" y="88" width="86" height="16" fill="#c47e7c"/><rect x="22" y="87.5" width="86" height="1.5" fill="#D4AF37" opacity="0.85"/><path d="M98 76C98 74 96 71 93 71C90.5 71 89 73.5 88.5 74.8C88 73.5 86.5 71 84 71C81 71 79 74 79 76C79 80 88.5 86 88.5 86C88.5 86 98 80 98 76Z" fill="#D4AF37"/></svg></div>
+                                    <div class="nav-logo" style="width:28px;height:28px;border-radius:7px;"><svg viewBox="0 0 130 130" fill="none"><rect width="130" height="130" rx="28" fill="#FFF5F3"/><rect x="22" y="32" width="86" height="72" rx="7" fill="#D4918F"/><rect x="46" y="24" width="38" height="15" rx="5" fill="#D4918F"/><circle cx="65" cy="62" r="21" fill="#2C2C2C"/><circle cx="65" cy="62" r="16" fill="#1A1517"/><circle cx="65" cy="62" r="11" fill="#0f0d0e"/><rect x="22" y="88" width="86" height="16" fill="#c47e7c"/><rect x="22" y="87.5" width="86" height="1.5" fill="#D4AF37" opacity="0.85"/><path d="M98 76C98 74 96 71 93 71C90.5 71 89 73.5 88.5 74.8C88 73.5 86.5 71 84 71C81 71 79 74 79 76C79 80 88.5 86 88.5 86C88.5 86 98 80 98 76Z" fill="#D4AF37"/></svg></div>
                                     <p class="phone-greeting" style="margin:0;">Good evening</p>
                                 </div>
                                 <div style="display:flex;gap:6px;">
@@ -1029,35 +1051,112 @@
                                     <div style="width:22px;height:22px;border-radius:11px;background:var(--dark-card-alt);display:flex;align-items:center;justify-content:center;font-size:11px;">🔥</div>
                                 </div>
                             </div>
-                            <div style="margin-bottom:12px;">
-                                <p class="phone-name" style="margin:0;">Your Next Adventure</p>
-                            </div>
-                            <!-- Stats row -->
-                            <div style="display:flex;gap:8px;margin-bottom:12px;">
-                                <div style="flex:1;background:var(--dark-card-alt);border-radius:12px;padding:8px;text-align:center;">
-                                    <div style="font-size:18px;font-weight:800;color:var(--burgundy);">12</div>
-                                    <div style="font-size:8px;color:var(--text-secondary);">completed</div>
+
+                            <!-- Screen carousel -->
+                            <div class="phone-screens">
+                                <!-- Screen 1: Home -->
+                                <div class="phone-slide active" data-screen="0">
+                                    <div style="margin-bottom:10px;"><p class="phone-name" style="margin:0;font-size:17px;">Your Next Adventure</p></div>
+                                    <div style="display:flex;gap:8px;margin-bottom:10px;">
+                                        <div style="flex:1;background:var(--dark-card-alt);border-radius:10px;padding:7px;text-align:center;">
+                                            <div style="font-size:16px;font-weight:800;color:var(--burgundy);">12</div>
+                                            <div style="font-size:7px;color:var(--text-secondary);">completed</div>
+                                        </div>
+                                        <div style="flex:1;background:var(--dark-card-alt);border-radius:10px;padding:7px;text-align:center;">
+                                            <div style="font-size:16px;font-weight:800;color:var(--burgundy);">7</div>
+                                            <div style="font-size:7px;color:var(--text-secondary);">day streak 🔥</div>
+                                        </div>
+                                    </div>
+                                    <div class="phone-card">
+                                        <div class="phone-scratch-lines"><div></div><div></div><div></div></div>
+                                        <div class="phone-rarity">EPIC</div>
+                                        <span class="phone-card-icon">✨</span>
+                                        <p class="phone-card-text">Scratch to Reveal</p>
+                                        <p class="phone-card-sub">Your next adventure awaits</p>
+                                    </div>
                                 </div>
-                                <div style="flex:1;background:var(--dark-card-alt);border-radius:12px;padding:8px;text-align:center;">
-                                    <div style="font-size:18px;font-weight:800;color:var(--burgundy);">7</div>
-                                    <div style="font-size:8px;color:var(--text-secondary);">day streak 🔥</div>
+
+                                <!-- Screen 2: Scrapbook -->
+                                <div class="phone-slide" data-screen="1">
+                                    <div style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+                                        <p class="phone-name" style="margin:0;font-size:17px;">Our Scrapbook</p>
+                                        <span style="font-size:10px;color:var(--burgundy);font-weight:600;">12 memories</span>
+                                    </div>
+                                    <!-- Polaroid grid -->
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;">
+                                        <div style="background:var(--dark-card-alt);border-radius:8px;padding:6px;">
+                                            <div style="background:linear-gradient(135deg,#D4918F,#E8C4C0);border-radius:4px;aspect-ratio:1;margin-bottom:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">🌅</span></div>
+                                            <div style="font-size:7px;color:var(--text-primary);font-weight:600;">#1 Sunset Mission</div>
+                                            <div style="font-size:6px;color:var(--text-secondary);margin-top:2px;">Mar 12</div>
+                                        </div>
+                                        <div style="background:var(--dark-card-alt);border-radius:8px;padding:6px;">
+                                            <div style="background:linear-gradient(135deg,#B87876,#D4918F);border-radius:4px;aspect-ratio:1;margin-bottom:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">🎨</span></div>
+                                            <div style="font-size:7px;color:var(--text-primary);font-weight:600;">#2 Paint Night</div>
+                                            <div style="font-size:6px;color:var(--text-secondary);margin-top:2px;">Mar 19</div>
+                                        </div>
+                                        <div style="background:var(--dark-card-alt);border-radius:8px;padding:6px;">
+                                            <div style="background:linear-gradient(135deg,#E8C4C0,#D4AF37);border-radius:4px;aspect-ratio:1;margin-bottom:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">🍳</span></div>
+                                            <div style="font-size:7px;color:var(--text-primary);font-weight:600;">#3 Cook Without Rules</div>
+                                            <div style="font-size:6px;color:var(--text-secondary);margin-top:2px;">Mar 26</div>
+                                        </div>
+                                        <div style="background:var(--dark-card-alt);border-radius:8px;padding:6px;">
+                                            <div style="background:linear-gradient(135deg,#9B59B6,#D4918F);border-radius:4px;aspect-ratio:1;margin-bottom:6px;display:flex;align-items:center;justify-content:center;"><span style="font-size:20px;">⭐</span></div>
+                                            <div style="font-size:7px;color:var(--text-primary);font-weight:600;">#4 Stargazing Date</div>
+                                            <div style="font-size:6px;color:var(--text-secondary);margin-top:2px;">Apr 2</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Screen 3: Our World -->
+                                <div class="phone-slide" data-screen="2">
+                                    <div style="margin-bottom:10px;"><p class="phone-name" style="margin:0;font-size:17px;">Our World</p></div>
+                                    <!-- Streak -->
+                                    <div style="background:var(--dark-card-alt);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+                                        <div style="font-size:28px;">🔥</div>
+                                        <div>
+                                            <div style="font-size:20px;font-weight:800;color:var(--burgundy);">7 Day Streak</div>
+                                            <div style="font-size:8px;color:var(--text-secondary);">Longest: 14 days</div>
+                                        </div>
+                                    </div>
+                                    <!-- Love note -->
+                                    <div style="background:var(--dark-card-alt);border-radius:12px;padding:12px;margin-bottom:8px;border-left:3px solid var(--burgundy);">
+                                        <div style="font-size:8px;color:var(--burgundy);font-weight:700;margin-bottom:4px;">💌 LOVE NOTE</div>
+                                        <div style="font-size:10px;color:var(--text-primary);line-height:1.4;font-style:italic;">"Can't wait for our next adventure together. You make everything fun."</div>
+                                        <div style="font-size:7px;color:var(--text-secondary);margin-top:6px;">— Sarah, 2h ago</div>
+                                    </div>
+                                    <!-- Countdown -->
+                                    <div style="background:var(--dark-card-alt);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;">
+                                        <div style="font-size:22px;">💕</div>
+                                        <div style="flex:1;">
+                                            <div style="font-size:10px;color:var(--text-primary);font-weight:600;">Anniversary</div>
+                                            <div style="font-size:8px;color:var(--text-secondary);">in 23 days</div>
+                                        </div>
+                                        <div style="background:var(--burgundy);border-radius:8px;padding:4px 8px;">
+                                            <div style="font-size:14px;font-weight:800;color:white;text-align:center;">23</div>
+                                            <div style="font-size:6px;color:rgba(255,255,255,0.7);text-align:center;">DAYS</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- Mystery card -->
-                            <div class="phone-card">
-                                <div class="phone-scratch-lines">
-                                    <div></div><div></div><div></div>
+
+                            <!-- Tab bar -->
+                            <div class="phone-tab-bar" id="phoneTabBar">
+                                <div class="phone-tab" data-tab="0" onclick="switchPhoneScreen(0)">
+                                    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M14 4 L4 12 L4 24 L10 24 L10 17 L18 17 L18 24 L24 24 L24 12 Z" class="tab-icon-path" fill="#D4918F"/></svg>
+                                    <span class="phone-tab-label active">Home</span>
                                 </div>
-                                <div class="phone-rarity">EPIC</div>
-                                <span class="phone-card-icon">&#10024;</span>
-                                <p class="phone-card-text">Scratch to Reveal</p>
-                                <p class="phone-card-sub">Your next adventure awaits</p>
-                            </div>
-                            <div class="phone-tab-bar">
-                                <div class="phone-tab"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M14 4 L4 12 L4 24 L10 24 L10 17 L18 17 L18 24 L24 24 L24 12 Z" fill="#D4918F"/></svg><span class="phone-tab-label active">Home</span></div>
-                                <div class="phone-tab"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="8" y="7" width="16" height="18" rx="3" fill="#9B8E88" opacity="0.4" transform="rotate(-6 16 16)"/><rect x="6" y="6" width="16" height="18" rx="3" fill="#9B8E88" opacity="0.6" transform="rotate(4 14 15)"/><rect x="5" y="5" width="16" height="18" rx="3" fill="#9B8E88"/><rect x="7" y="7" width="12" height="9" rx="1.5" fill="#1A1517" opacity="0.5"/><rect x="5" y="18" width="16" height="1" fill="#9B8E88" opacity="0.5"/></svg><span class="phone-tab-label">Scrapbook</span></div>
-                                <div class="phone-tab"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" fill="none" stroke="#9B8E88" stroke-width="1.8"/><path d="M4 14 Q14 10 24 14" fill="none" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M4 14 Q14 18 24 14" fill="none" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M14 4 Q18 14 14 24" fill="none" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M14 4 Q10 14 14 24" fill="none" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M14 9.5 C12.5 9.5,11.5 11,11.5 12 C11.5 14.5,14 16.5,14 16.5 C14 16.5,16.5 14.5,16.5 12 C16.5 11,15.5 9.5,14 9.5Z" fill="#9B8E88"/></svg><span class="phone-tab-label">Our World</span></div>
-                                <div class="phone-tab"><svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" fill="#9B8E88"/><path d="M5 24 C5 19 8.5 16 14 16 C19.5 16 23 19 23 24" fill="none" stroke="#9B8E88" stroke-width="2" stroke-linecap="round"/></svg><span class="phone-tab-label">Profile</span></div>
+                                <div class="phone-tab" data-tab="1" onclick="switchPhoneScreen(1)">
+                                    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="8" y="7" width="16" height="18" rx="3" class="tab-icon-path" fill="#9B8E88" opacity="0.4" transform="rotate(-6 16 16)"/><rect x="6" y="6" width="16" height="18" rx="3" class="tab-icon-path" fill="#9B8E88" opacity="0.6" transform="rotate(4 14 15)"/><rect x="5" y="5" width="16" height="18" rx="3" class="tab-icon-path" fill="#9B8E88"/><rect x="7" y="7" width="12" height="9" rx="1.5" fill="#1A1517" opacity="0.5"/><rect x="5" y="18" width="16" height="1" class="tab-icon-path" fill="#9B8E88" opacity="0.5"/></svg>
+                                    <span class="phone-tab-label">Scrapbook</span>
+                                </div>
+                                <div class="phone-tab" data-tab="2" onclick="switchPhoneScreen(2)">
+                                    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" fill="none" class="tab-icon-stroke" stroke="#9B8E88" stroke-width="1.8"/><path d="M4 14 Q14 10 24 14" fill="none" class="tab-icon-stroke" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M4 14 Q14 18 24 14" fill="none" class="tab-icon-stroke" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M14 4 Q18 14 14 24" fill="none" class="tab-icon-stroke" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M14 4 Q10 14 14 24" fill="none" class="tab-icon-stroke" stroke="#9B8E88" stroke-width="1.2" opacity="0.6"/><path d="M14 9.5 C12.5 9.5,11.5 11,11.5 12 C11.5 14.5,14 16.5,14 16.5 C14 16.5,16.5 14.5,16.5 12 C16.5 11,15.5 9.5,14 9.5Z" class="tab-icon-path" fill="#9B8E88"/></svg>
+                                    <span class="phone-tab-label">Our World</span>
+                                </div>
+                                <div class="phone-tab" data-tab="3">
+                                    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" class="tab-icon-path" fill="#9B8E88"/><path d="M5 24 C5 19 8.5 16 14 16 C19.5 16 23 19 23 24" fill="none" class="tab-icon-stroke" stroke="#9B8E88" stroke-width="2" stroke-linecap="round"/></svg>
+                                    <span class="phone-tab-label">Profile</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1425,6 +1524,56 @@
                 answer.style.maxHeight = answer.scrollHeight + 'px';
             }
         }
+
+        // Phone mockup screen carousel
+        let currentPhoneScreen = 0;
+        const totalScreens = 3;
+        const tabScreenMap = [0, 1, 2]; // tab index → screen index
+
+        function switchPhoneScreen(screenIndex) {
+            currentPhoneScreen = screenIndex;
+            // Update slides
+            document.querySelectorAll('.phone-slide').forEach(slide => {
+                slide.classList.remove('active');
+                if (parseInt(slide.dataset.screen) === screenIndex) {
+                    slide.classList.add('active');
+                }
+            });
+            // Update tab active states
+            const tabs = document.querySelectorAll('#phoneTabBar .phone-tab');
+            tabs.forEach((tab, i) => {
+                const label = tab.querySelector('.phone-tab-label');
+                const fills = tab.querySelectorAll('.tab-icon-path');
+                const strokes = tab.querySelectorAll('.tab-icon-stroke');
+                const isActive = i === screenIndex;
+                if (label) {
+                    label.classList.toggle('active', isActive);
+                }
+                fills.forEach(el => {
+                    el.setAttribute('fill', isActive ? '#D4918F' : '#9B8E88');
+                });
+                strokes.forEach(el => {
+                    el.setAttribute('stroke', isActive ? '#D4918F' : '#9B8E88');
+                });
+            });
+        }
+
+        // Auto-rotate every 4 seconds
+        let phoneAutoTimer = setInterval(() => {
+            switchPhoneScreen((currentPhoneScreen + 1) % totalScreens);
+        }, 4000);
+
+        // Pause auto-rotate on manual tap, resume after 10s
+        document.querySelectorAll('#phoneTabBar .phone-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                clearInterval(phoneAutoTimer);
+                setTimeout(() => {
+                    phoneAutoTimer = setInterval(() => {
+                        switchPhoneScreen((currentPhoneScreen + 1) % totalScreens);
+                    }, 4000);
+                }, 10000);
+            });
+        });
     </script>
 </body>
 </html>
